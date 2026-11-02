@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Assistant Evaluation | Ruchika Jain</title>
+  <meta name="description" content="Evaluated AI-generated responses to understand how effectively an AI assistant handles user queries and where responses could be improved.">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/styles/main.min.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+  <canvas id="ai-network-background" aria-hidden="true"></canvas>
+  <header class="container py-6"><a href="index.html#portfolio" class="inline-flex items-center font-body font-semibold text-primary hover:underline"><i class="bx bx-left-arrow-alt mr-2 text-2xl"></i>Back to portfolio</a></header>
+  <main class="container py-10 md:py-16">
+    <div class="w-full max-w-7xl mx-auto">
+      <p class="font-body font-semibold uppercase tracking-wide text-primary">Product Case Study</p>
+      <h1 class="mt-3 font-header text-4xl font-bold text-primary sm:text-5xl">AI Assistant Evaluation</h1>
+      <section class="mt-10 rounded-lg bg-white p-6 shadow-lg md:p-10">
+        <h2 class="font-header text-2xl font-bold text-black">Overview</h2>
+        <p class="mt-4 font-body leading-relaxed text-grey-20">This project focused on evaluating AI-generated responses to understand how effectively an AI assistant handles user queries. The goal was to review response quality, identify areas for improvement, and refine prompts to improve the relevance and usefulness of the answers.</p>
+      </section>
+      <section class="mt-8 rounded-lg bg-white p-6 shadow-lg md:p-10">
+        <h2 class="font-header text-2xl font-bold text-black">My Contribution</h2>
+        <ul class="mt-4 space-y-3 font-body leading-relaxed text-grey-20">
+          <li class="flex"><span class="mr-3 text-primary">✓</span><span>Prepared test scenarios and questions</span></li><li class="flex"><span class="mr-3 text-primary">✓</span><span>Reviewed responses for relevance, accuracy, clarity, and usefulness</span></li><li class="flex"><span class="mr-3 text-primary">✓</span><span>Identified unclear or incomplete answers</span></li><li class="flex"><span class="mr-3 text-primary">✓</span><span>Refined prompts to improve response quality and consistency</span></li><li class="flex"><span class="mr-3 text-primary">✓</span><span>Documented observations and improvement areas.</span></li>
+        </ul>
+      </section>
+      <section class="mt-8 rounded-lg bg-white p-6 shadow-lg md:p-10">
+        <h2 class="font-header text-2xl font-bold text-black">Tools</h2>
+        <p class="mt-4 font-body leading-relaxed text-grey-20">ChatGPT • Claude • Gemini • Microsoft Excel • Google Sheets</p>
+      </section>
+    </div>
+  </main>
+  <footer class="container py-8 text-center font-body text-grey-20"><a href="index.html#portfolio" class="text-primary hover:underline">Return to all case studies</a></footer>
+<script>
+(() => {
+  const canvas = document.getElementById("ai-network-background");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  let width, height, particles = [];
+  let animationId;
+
+  function resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.min(150, Math.max(65, Math.floor(width / 9)));
+
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.9,
+      vy: (Math.random() - 0.5) * 0.9,
+      radius: Math.random() * 2.5 + 1,
+      phase: Math.random() * Math.PI * 2
+    }));
+  }
+
+  function draw(time = 0) {
+    ctx.clearRect(0, 0, width, height);
+
+    const t = time * 0.001;
+
+    // Move the particles.
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+    });
+
+    // Draw connecting lines.
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i];
+        const b = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 180) {
+          const opacity = (1 - distance / 180) * 0.8;
+
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(205, 165, 255, ${opacity})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw glowing nodes.
+    particles.forEach(p => {
+      const pulse = 0.65 + Math.sin(t * 3 + p.phase) * 0.35;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius * 5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(155, 80, 255, ${0.13 * pulse})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius * pulse, 0, Math.PI * 2);
+      ctx.fillStyle = "#f0d8ff";
+      ctx.shadowBlur = 22;
+      ctx.shadowColor = "#bd75ff";
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+
+    // Add a moving light pulse.
+    const index = Math.floor(t * 12) % particles.length;
+    const p = particles[index];
+
+    if (p) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 14, 0, Math.PI * 2);
+      const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 14);
+      glow.addColorStop(0, "rgba(255,255,255,0.95)");
+      glow.addColorStop(1, "rgba(190,100,255,0)");
+      ctx.fillStyle = glow;
+      ctx.fill();
+    }
+
+    animationId = requestAnimationFrame(draw);
+  }
+
+  resizeCanvas();
+  draw();
+
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(animationId);
+    resizeCanvas();
+    draw();
+  });
+})();
+</script>
+</body>
+</html>

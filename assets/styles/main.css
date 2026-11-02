@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+
+html {
+  @apply font-body antialiased;
+}
+
+@tailwind utilities;
+/* Futuristic animated AI network background */
+body.bg-white {
+  background: linear-gradient(
+    135deg,
+    #180b45 0%,
+    #351078 45%,
+    #5120a8 75%,
+    #211052 100%
+  ) !important;
+}
+
+#ai-network-background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.bg-white > header,
+body.bg-white > main,
+body.bg-white > footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* White cards remain readable */
+body.bg-white main section {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+/* Hero profile photo size */
+.profile-photo {
+  width: 300px;
+  height: 300px;
+  max-width: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
